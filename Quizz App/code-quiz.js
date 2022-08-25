@@ -204,4 +204,3 @@ clearScoresBtnEl.addEventListener("click", function () {
     localStorage.setItem("scores", JSON.stringify(highScores));
     renderHighScores();
 });
-
