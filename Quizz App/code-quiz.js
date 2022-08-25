@@ -102,3 +102,106 @@ function reset() {
     currentQ = 0;
     secondsElapsed = 0;
     timerEl.textContent = 0;
+}
+function renderQuestion() {
+    questionEl.textContent = questions[currentQ].title;
+    for (i = 0; i < answersEl.children.length; i++) {
+        answersEl.children[i].children[0].textContent = `${(i + 1)}: ${questions[currentQ].choices[i]}`;
+    }
+}
+
+
+function renderHighScores() {
+    
+    scoresEl.innerHTML = "";
+    show(highScoresEl);
+    highScores = JSON.parse(localStorage.getItem("scores"));
+    for (let i = 0; i < highScores.length; i++) {
+        let scoreItem = document.createElement("div");
+        scoreItem.className += "row mb-3 p-2";
+        console.log(scoreItem)
+        scoreItem.setAttribute("style", "background-color:PaleTurquoise;");
+        scoreItem.textContent = `${(i + 1)}. ${highScores[i].username} - ${highScores[i].userScore}`;
+        scoresEl.appendChild(scoreItem);
+    }
+}
+function renderQuestion() {
+    questionEl.textContent = questions[currentQ].title;
+    for (i = 0; i < answersEl.children.length; i++) {
+        answersEl.children[i].children[0].textContent = `${(i + 1)}: ${questions[currentQ].choices[i]}`;
+    }
+}
+
+
+function renderHighScores() {
+    
+    scoresEl.innerHTML = "";
+    show(highScoresEl);
+    highScores = JSON.parse(localStorage.getItem("scores"));
+    for (let i = 0; i < highScores.length; i++) {
+        let scoreItem = document.createElement("div");
+        scoreItem.className += "row mb-3 p-2";
+        console.log(scoreItem)
+        scoreItem.setAttribute("style", "background-color:PaleTurquoise;");
+        scoreItem.textContent = `${(i + 1)}. ${highScores[i].username} - ${highScores[i].userScore}`;
+        scoresEl.appendChild(scoreItem);
+    }
+}
+
+
+
+
+
+viewHScoresBtnEl.addEventListener("click", function () {
+    hide(welcomeEl);
+    hide(quizEl);
+    hide(inputScoreEl);
+    renderHighScores();
+    stopTimer();
+    reset();
+});
+
+
+startQuizBtnEl.addEventListener("click", function () {
+    hide(welcomeEl);
+    startTimer();
+    renderQuestion();
+    show(quizEl);
+});
+
+
+answersEl.addEventListener("click", function (e) {
+    if (e.target.matches("button")) {
+        checkAnswer(e.target);
+        nextQuestion();
+    }
+});
+
+
+submitInitialsBtnEl.addEventListener("click", function () {
+    let initValue = initialsEl.value.trim();
+    if (initValue) {
+        let userScore = { username: initValue, userScore: score };
+        initialsEl.value = '';
+        highScores = JSON.parse(localStorage.getItem("scores")) || [];
+        highScores.push(userScore)
+        localStorage.setItem("scores", JSON.stringify(highScores));
+        hide(inputScoreEl);
+        renderHighScores();
+        reset();
+    }
+});
+
+
+goBackBtnEl.addEventListener("click", function () {
+    hide(highScoresEl);
+    show(welcomeEl);
+});
+
+
+clearScoresBtnEl.addEventListener("click", function () {
+    highScores = [];
+    localStorage.setItem("scores", JSON.stringify(highScores));
+    renderHighScores();
+});
+
