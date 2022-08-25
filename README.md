@@ -32,4 +32,4 @@ Finally, the quiz app had to look like the following mock-up:
 
 I came up with the quiz app and you can use the following link to see the app:
 
-#
+# https://kariukit.github.io/Quizz-App/
