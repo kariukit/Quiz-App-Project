@@ -73,3 +73,32 @@ function checkAnswer(answer) {
         displayMessage("Wrong...");
     }
 }
+function displayMessage(m) {
+    let messageHr = document.createElement("hr");
+    let messageEl = document.createElement("div");
+    messageEl.textContent = m;
+    document.querySelector(".jumbotron").appendChild(messageHr);
+    document.querySelector(".jumbotron").appendChild(messageEl);
+    setTimeout(function () {
+            messageHr.remove();
+            messageEl.remove();
+    }, 2000);
+
+}
+
+
+function hide(element) {
+    element.style.display = "none";
+}
+
+
+function show(element) {
+    element.style.display = "block";
+}
+
+
+function reset() {
+    score = 0;
+    currentQ = 0;
+    secondsElapsed = 0;
+    timerEl.textContent = 0;
